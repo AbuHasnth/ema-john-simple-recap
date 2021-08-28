@@ -8,6 +8,7 @@ import Cart from '../Cart/Cart';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import happyImage from '../../images/giphy.gif'
+import { useHistory } from 'react-router-dom';
 
 const OrderRw = () => {
     const [cart, setCart] = useState([]);
@@ -17,6 +18,7 @@ const OrderRw = () => {
         setCart(newCart);
         removeFromDatabaseCart(productKey);
     }
+    const history = useHistory();
     useEffect(()=>{
         const savedCart = getDatabaseCart();
         const productKeys= Object.keys(savedCart);
@@ -32,10 +34,12 @@ const OrderRw = () => {
         
     },[])
     //order place korar por cart and order review theke sokol data delete korar jonno
-    const handleOrderPlaced= () =>{
-        setCart([]);
-        setOrderPlaced(true);
-        processOrder();
+    const handleProceedCheckout= () =>{
+        // setCart([]);
+        // setOrderPlaced(true);
+        // processOrder();
+        history.push('/shipment')
+
     }
 
     let thankYou;
@@ -57,9 +61,9 @@ const OrderRw = () => {
                 }
                 <div className='cart-container'>
                     <Cart cart={cart}>
-                    <button onClick={handleOrderPlaced}> 
+                    <button onClick={handleProceedCheckout}> 
                         <FontAwesomeIcon icon={faShoppingCart} />   
-                                Place Order
+                                Proceed Checkout
                     </button>
                     </Cart>
 
